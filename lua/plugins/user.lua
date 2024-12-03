@@ -1,7 +1,7 @@
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
 
-local is_wsl = vim.fn.has("wsl") == 1
+local is_wsl = vim.fn.has "wsl" == 1
 -- local is_mac = vim.fn.has("macunix") == 1
 -- local is_linux = not is_wsl and not is_mac
 
@@ -31,12 +31,11 @@ if is_wsl then
   }
 end
 
-
 ---@type LazySpec
 return {
 
   -- == Examples of Adding Plugins ==
-
+  { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
   "andweeb/presence.nvim",
   {
     "ray-x/lsp_signature.nvim",
@@ -45,7 +44,17 @@ return {
   },
 
   -- == Examples of Overriding Plugins ==
-
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    config = function()
+      local neotree = require "neo-tree"
+      neotree.setup {
+        window = {
+          position = "left",
+        },
+      }
+    end,
+  },
   -- customize alpha options
   {
     "goolord/alpha-nvim",
@@ -72,7 +81,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.luasnip" (plugin, opts) -- include the default astronvim config that calls the setup call
+      require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
@@ -82,7 +91,7 @@ return {
   {
     "windwp/nvim-autopairs",
     config = function(plugin, opts)
-      require "astronvim.plugins.configs.nvim-autopairs" (plugin, opts) -- include the default astronvim config that calls the setup call
+      require "astronvim.plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom autopairs configuration such as custom rules
       local npairs = require "nvim-autopairs"
       local Rule = require "nvim-autopairs.rule"
@@ -90,18 +99,18 @@ return {
       npairs.add_rules(
         {
           Rule("$", "$", { "tex", "latex" })
-          -- don't add a pair if the next character is %
-              :with_pair(cond.not_after_regex "%%")
-          -- don't add a pair if  the previous character is xxx
-              :with_pair(
-                cond.not_before_regex("xxx", 3)
-              )
-          -- don't move right when repeat character
-              :with_move(cond.none())
-          -- don't delete if the next character is xx
-              :with_del(cond.not_after_regex "xx")
-          -- disable adding a newline when you press <cr>
-              :with_cr(cond.none()),
+            -- don't add a pair if the next character is %
+            :with_pair(cond.not_after_regex "%%")
+            -- don't add a pair if  the previous character is xxx
+            :with_pair(
+              cond.not_before_regex("xxx", 3)
+            )
+            -- don't move right when repeat character
+            :with_move(cond.none())
+            -- don't delete if the next character is xx
+            :with_del(cond.not_after_regex "xx")
+            -- disable adding a newline when you press <cr>
+            :with_cr(cond.none()),
         },
         -- disable for .vim files, but it work for another filetypes
         Rule("a", "a", "-vim")
@@ -126,10 +135,10 @@ return {
   },
   {
     "amitds1997/remote-nvim.nvim",
-    version = "*",                     -- Pin to GitHub releases
+    version = "*", -- Pin to GitHub releases
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- For standard functions
-      "MunifTanjim/nui.nvim",          -- To build the plugin UI
+      "nvim-lua/plenary.nvim", -- For standard functions
+      "MunifTanjim/nui.nvim", -- To build the plugin UI
       "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
     },
     config = true,
@@ -137,17 +146,47 @@ return {
   {
     "brenton-leighton/multiple-cursors.nvim",
     version = "*", -- Use the latest tagged version
-    opts = {},     -- This causes the plugin setup function to be called
+    opts = {}, -- This causes the plugin setup function to be called
     keys = {
-      { "<C-S-j>",       "<Cmd>MultipleCursorsAddDown<CR>",        mode = { "n", "x" },      desc = "Add cursor and move down" },
-      { "<C-S-k>",       "<Cmd>MultipleCursorsAddUp<CR>",          mode = { "n", "x" },      desc = "Add cursor and move up" },
+      {
+        "<C-S-j>",
+        "<Cmd>MultipleCursorsAddDown<CR>",
+        mode = { "n", "x" },
+        desc = "Add cursor and move down",
+      },
+      {
+        "<C-S-k>",
+        "<Cmd>MultipleCursorsAddUp<CR>",
+        mode = { "n", "x" },
+        desc = "Add cursor and move up",
+      },
 
-      { "<C-Up>",        "<Cmd>MultipleCursorsAddUp<CR>",          mode = { "n", "i", "x" }, desc = "Add cursor and move up" },
-      { "<C-Down>",      "<Cmd>MultipleCursorsAddDown<CR>",        mode = { "n", "i", "x" }, desc = "Add cursor and move down" },
+      {
+        "<C-Up>",
+        "<Cmd>MultipleCursorsAddUp<CR>",
+        mode = { "n", "i", "x" },
+        desc = "Add cursor and move up",
+      },
+      {
+        "<C-Down>",
+        "<Cmd>MultipleCursorsAddDown<CR>",
+        mode = { "n", "i", "x" },
+        desc = "Add cursor and move down",
+      },
 
-      { "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = { "n", "i" },      desc = "Add or remove cursor" },
+      {
+        "<C-LeftMouse>",
+        "<Cmd>MultipleCursorsMouseAddDelete<CR>",
+        mode = { "n", "i" },
+        desc = "Add or remove cursor",
+      },
 
-      { "<Leader>a",     "<Cmd>MultipleCursorsAddMatches<CR>",     mode = { "n", "x" },      desc = "Add cursors to cword" },
+      {
+        "<Leader>a",
+        "<Cmd>MultipleCursorsAddMatches<CR>",
+        mode = { "n", "x" },
+        desc = "Add cursors to cword",
+      },
       {
         "<Leader>A",
         "<Cmd>MultipleCursorsAddMatchesV<CR>",
@@ -163,7 +202,7 @@ return {
       },
       { "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = { "n", "x" }, desc = "Jump to next cword" },
 
-      { "<Leader>l", "<Cmd>MultipleCursorsLock<CR>",          mode = { "n", "x" }, desc = "Lock virtual cursors" },
+      { "<Leader>l", "<Cmd>MultipleCursorsLock<CR>", mode = { "n", "x" }, desc = "Lock virtual cursors" },
     },
   },
 }
