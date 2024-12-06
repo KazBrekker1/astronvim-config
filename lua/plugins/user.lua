@@ -42,6 +42,26 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
+  },
 
   -- == Examples of Overriding Plugins ==
   {
@@ -52,6 +72,19 @@ return {
         window = {
           position = "left",
         },
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            show_hidden_count = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = false,
+          },
+        },
+        buffers = { follow_current_file = { enable = true } },
       }
     end,
   },
