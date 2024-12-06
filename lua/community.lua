@@ -10,6 +10,7 @@ return {
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.vue" },
+  { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },

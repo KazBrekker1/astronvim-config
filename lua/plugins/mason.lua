@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- Customize Mason plugins
 
 ---@type LazySpec
@@ -14,8 +12,8 @@ return {
         -- add more arguments for adding more language servers
         "basedpyright",
         "vtsls",
-        "vue-language-server",
-        "tailwindcss-language-server",
+        "volar",
+        "tailwindcss",
       },
     },
   },

@@ -22,7 +22,7 @@ return {
       virtual_text = true,
       underline = true,
     },
-    -- vim options can be configured here
+   -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
